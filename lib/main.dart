@@ -14,7 +14,9 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  final TextEditingController controller = TextEditingController();
   String inputValue = 'noch nichts';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,18 +27,22 @@ class _MainAppState extends State<MainApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Eingabe vom Benutzer: $inputValue'),
+                Text(controller.text),
                 const SizedBox(
                   height: 32,
                 ),
                 TextField(
+                  controller: controller,
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
-                  onChanged: (String newValue) {
-                    print('Der wert ist: $newValue');
-                    setState(() => inputValue = newValue);
-                  },
                 ),
+                OutlinedButton(
+                  onPressed: () {
+                    print(controller.text);
+                    setState(() {});
+                  },
+                  child: const Text("Text setzen"),
+                )
               ],
             ),
           ),
