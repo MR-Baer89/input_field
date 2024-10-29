@@ -4,6 +4,9 @@ void main() {
   runApp(const MainApp());
 }
 
+String userName = 'Mr. Bär';
+String userPassword = 'Honey89';
+
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
@@ -14,8 +17,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final TextEditingController controller = TextEditingController();
-  String inputValue = 'noch nichts';
+  final TextEditingController userController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +30,37 @@ class _MainAppState extends State<MainApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(controller.text),
+                Text(userController.text),
                 const SizedBox(
                   height: 32,
                 ),
                 TextField(
-                  controller: controller,
+                  controller: userController,
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                TextField(
+                  controller: passwordController,
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    print(controller.text);
+                    print(userController.text);
+                    if (userController.text == userName &&
+                        passwordController.text == userPassword) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Login successfull')));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Go awy')));
+                    }
                     setState(() {});
                   },
-                  child: const Text("Text setzen"),
+                  child: const Text('Login'),
                 )
               ],
             ),
